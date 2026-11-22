@@ -1,0 +1,25 @@
+name: Plugin WordPress
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: cd wordpress && zip -r ../caap64-anemometre-wp.zip caap64-anemometre/
+      - run: gh release delete plugin-wordpress --yes || true
+        env:
+          GH_TOKEN: ${{ github.token }}
+      - uses: softprops/action-gh-release@v2
+        with:
+          tag_name: plugin-wordpress
+          name: Plugin WordPress CAAP64 Anémomètre
+          files: caap64-anemometre-wp.zip
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
