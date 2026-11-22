@@ -73,6 +73,36 @@ npx eas-cli@latest build --profile production --platform all
 npx eas-cli@latest submit --platform ios                   # TestFlight / App Store (compte Apple Developer requis)
 ```
 
+### Premier build EAS (à faire une fois, sur ton Mac)
+
+1. Se connecter avec le compte Expo (celui d'Expo Go, ex. `regisc`) — **tes identifiants ne sont jamais demandés ni stockés ailleurs que chez toi** :
+   ```bash
+   npx eas-cli@latest login
+   npx eas-cli@latest whoami    # doit afficher ton compte
+   ```
+2. Lier le projet à EAS (écrit le `projectId` dans `app.json` — committer ce changement ensuite) :
+   ```bash
+   npx eas-cli@latest build:configure
+   ```
+3. Premier build **Android** (aucun compte payant requis, produit un APK installable) :
+   ```bash
+   npx eas-cli@latest build --profile preview --platform android
+   ```
+   EAS génère automatiquement le keystore Android. À la fin, un **lien de téléchargement de l'APK** est affiché :
+   copier ce lien dans le shortcode WordPress `apk="..."` (ou uploader l'APK dans *Médias* de caap64.fr).
+4. Premier build **iOS** : nécessite un compte Apple Developer (99 $/an, [developer.apple.com](https://developer.apple.com)) — pendant le build, EAS demande ton Apple ID + un mot de passe d'application (généré sur [appleid.apple.com](https://appleid.apple.com) → Connexion et sécurité → Mots de passe d'application) :
+   ```bash
+   npx eas-cli@latest build --profile preview --platform ios
+   npx eas-cli@latest submit --platform ios    # envoie sur App Store Connect → TestFlight
+   ```
+   Le lien TestFlight public (ou le lien d'invitation) va dans le shortcode `testflight="..."`.
+
+### Builds automatiques via GitHub Actions
+
+Ajouter le secret `EXPO_TOKEN` : [expo.dev/settings/access-tokens](https://expo.dev/settings/access-tokens) → créer un token →
+dans le dépôt GitHub : *Settings → Secrets and variables → Actions → New repository secret* → nom `EXPO_TOKEN`.
+Ensuite *Actions → EAS Build → Run workflow* (profil `preview`, plateforme `all`). Le token ne doit jamais être partagé ni commité.
+
 ## Intégrer l'anémomètre et l'app sur caap64.fr (WordPress)
 
 Trois méthodes, de la plus simple à la plus complète :
