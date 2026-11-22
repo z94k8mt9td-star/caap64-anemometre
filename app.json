@@ -1,0 +1,37 @@
+{
+  "expo": {
+    "name": "CAAP64 Anémomètre",
+    "slug": "caap64-anemometre",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "dark",
+    "scheme": "caap64",
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#0A1120"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "fr.caap64.anemometre"
+    },
+    "android": {
+      "package": "fr.caap64.anemometre",
+      "adaptiveIcon": {
+        "backgroundColor": "#0A1120",
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundImage": "./assets/android-icon-background.png",
+        "monochromeImage": "./assets/android-icon-monochrome.png"
+      },
+      "predictiveBackGestureEnabled": false
+    },
+    "web": {
+      "favicon": "./assets/favicon.png",
+      "bundler": "metro"
+    },
+    "plugins": [
+      "expo-router"
+    ]
+  }
+}
