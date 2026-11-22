@@ -1,0 +1,32 @@
+name: EAS Build
+
+on:
+  workflow_dispatch:
+    inputs:
+      profile:
+        description: Profil EAS (development, preview, production)
+        required: true
+        default: preview
+      platform:
+        description: Plateforme (ios, android, all)
+        required: true
+        default: all
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - uses: expo/expo-github-action@v8
+        with:
+          eas-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
+      - run: npx eas-cli@latest build --profile ${{ inputs.profile }} --platform ${{ inputs.platform }} --non-interactive

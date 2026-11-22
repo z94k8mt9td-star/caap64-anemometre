@@ -54,6 +54,25 @@ npm run lint        # expo lint
 node scripts/generate-icons.js
 ```
 
+## CI et builds EAS
+
+- `.github/workflows/ci.yml` : à chaque PR et chaque push sur `main`, exécute `npm ci`,
+  `npx tsc --noEmit`, `npx expo lint` et un export Metro Android (smoke test du bundle).
+- `.github/workflows/eas-build.yml` : build EAS déclenché manuellement (*Actions → EAS Build → Run workflow*),
+  avec les profils définis dans `eas.json`. Nécessite le secret `EXPO_TOKEN` dans
+  *Settings → Secrets and variables → Actions* (token créé sur https://expo.dev/settings/access-tokens).
+
+Builds manuels en local :
+
+```bash
+npx eas-cli@latest login
+npx eas-cli@latest device:register                        # enregistrer son iPhone (UDID) pour le profil development
+npx eas-cli@latest build --profile development --platform ios
+npx eas-cli@latest build --profile preview --platform all  # apk/aab + ipa internes (TestFlight)
+npx eas-cli@latest build --profile production --platform all
+npx eas-cli@latest submit --platform ios                   # TestFlight / App Store (compte Apple Developer requis)
+```
+
 ## Structure
 
 ```
