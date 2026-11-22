@@ -73,6 +73,49 @@ npx eas-cli@latest build --profile production --platform all
 npx eas-cli@latest submit --platform ios                   # TestFlight / App Store (compte Apple Developer requis)
 ```
 
+## Intégrer l'anémomètre et l'app sur caap64.fr (WordPress)
+
+Trois méthodes, de la plus simple à la plus complète :
+
+### Méthode 1 — plugin WordPress (recommandé)
+
+Le dossier `wordpress/caap64-anemometre/` contient un plugin prêt à l'emploi :
+
+```bash
+cd wordpress
+zip -r ../caap64-anemometre-wp.zip caap64-anemometre/
+```
+
+Sur caap64.fr : *Extensions → Ajouter → Téléverser un plugin* → uploader `caap64-anemometre-wp.zip` → **Activer**.
+
+Dans n'importe quelle page/article, ajouter les shortcodes :
+
+```
+[caap64_wind]
+[caap64_app appstore="https://apps.apple.com/..." testflight="https://testflight.apple.com/..." play="https://play.google.com/..." apk="https://caap64.fr/wp-content/uploads/caap64-anemometre.apk"]
+```
+
+- `[caap64_wind]` : carte du vent en direct (vitesse moyenne, min/max, rose des vents, échelle de Beaufort,
+  état de la station), rafraîchie toutes les 60 s directement depuis l'API OpenWindMap (CORS ouvert, aucune clé).
+- `[caap64_app ...]` : boutons de téléchargement de l'app. Uploader l'APK dans *Médias* et mettre son URL
+  dans `apk="..."`. Seuls les liens renseignés s'affichent.
+
+### Méthode 2 — page statique `web/`
+
+Le dossier `web/` (`index.html` + `wind-widget.js` + `wind-widget.css`) est une page autonome :
+vent en direct + boutons de téléchargement. Renseigner les liens dans `CAAP64_LINKS` en haut du script
+de `index.html`, puis héberger le dossier (GitHub Pages, ou un sous-dossier de caap64.fr) et linker
+la page depuis le menu WordPress.
+
+### Méthode 3 — widget officiel OpenWindMap
+
+Dans un bloc HTML personnalisé de WordPress :
+
+```html
+<script src="https://www.openwindmap.org/js/widget-v1.js"></script>
+<div class="owm-widget" data-id="OWM986" data-show-live="yes" data-show-2h="yes"></div>
+```
+
 ## Structure
 
 ```

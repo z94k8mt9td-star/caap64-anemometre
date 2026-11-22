@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CAAP64 Anémomètre — Application iPhone &amp; Android</title>
+  <link rel="stylesheet" href="wind-widget.css">
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: #060b16;
+      color: #e8eef9;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 32px 16px 48px;
+    }
+    h1 {
+      font-size: 24px;
+      margin: 0 0 4px;
+      text-align: center;
+    }
+    .subtitle {
+      color: #8fa3c4;
+      margin: 0 0 24px;
+      text-align: center;
+      max-width: 440px;
+    }
+    .block {
+      margin-bottom: 20px;
+    }
+    h2 {
+      font-size: 17px;
+      margin: 0 0 10px;
+      max-width: 440px;
+    }
+    footer {
+      color: #8fa3c4;
+      font-size: 12px;
+      margin-top: 8px;
+      text-align: center;
+      max-width: 440px;
+    }
+    a {
+      color: #38bdf8;
+    }
+  </style>
+</head>
+<body>
+  <h1>CAAP64 Anémomètre</h1>
+  <p class="subtitle">Le vent en direct du terrain du CAAP64 (station OpenWindMap n° 986) et l'application mobile iPhone / Android.</p>
+
+  <div class="block">
+    <div class="caap64-wind" data-station="986">
+      <div class="caap64-wind-top">
+        <svg class="caap64-compass" viewBox="0 0 100 100" width="84" height="84" role="img" aria-label="Direction du vent">
+          <circle cx="50" cy="50" r="45" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.35"/>
+          <text x="50" y="13" class="caap64-card" text-anchor="middle">N</text>
+          <text x="91" y="54" class="caap64-card" text-anchor="middle">E</text>
+          <text x="50" y="95" class="caap64-card" text-anchor="middle">S</text>
+          <text x="9" y="54" class="caap64-card" text-anchor="middle">O</text>
+          <g class="caap64-arrow"><path d="M50 16 L57 60 L50 54 L43 60 Z"/></g>
+        </svg>
+        <div class="caap64-wind-nums">
+          <div class="caap64-speed"><span class="caap64-avg">—</span><span class="caap64-unit"> km/h</span></div>
+          <div class="caap64-range">min <span class="caap64-min">—</span> · max <span class="caap64-max">—</span> km/h</div>
+        </div>
+      </div>
+      <div class="caap64-dir">Vent de <strong class="caap64-dir-label">—</strong> (<span class="caap64-deg">—</span>°) → souffle vers <strong class="caap64-opp">—</strong></div>
+      <div class="caap64-bft-line"><span class="caap64-bft">—</span></div>
+      <div class="caap64-meta"><span class="caap64-state">—</span> · mesure du <span class="caap64-date">—</span> (<span class="caap64-ago">—</span>)</div>
+    </div>
+  </div>
+
+  <div class="block">
+    <h2>Télécharger l'application</h2>
+    <div class="caap64-app">
+      <div class="caap64-app-buttons" id="caap64-links"></div>
+      <div class="caap64-help" id="caap64-links-help"></div>
+    </div>
+  </div>
+
+  <footer>
+    Données : <a href="https://www.openwindmap.org/owm-986">OpenWindMap — station 986</a>
+    (licence CC-BY 4.0) · <a href="https://caap64.fr/">caap64.fr</a>
+  </footer>
+
+  <script>
+    var CAAP64_LINKS = {
+      appstore: '',
+      testflight: '',
+      play: '',
+      apk: ''
+    };
+    (function () {
+      var buttons = [
+        ['appstore', 'App Store (iPhone)'],
+        ['testflight', 'TestFlight (iPhone)'],
+        ['play', 'Google Play (Android)'],
+        ['apk', "Télécharger l'APK (Android)"]
+      ];
+      var container = document.getElementById('caap64-links');
+      var help = document.getElementById('caap64-links-help');
+      var any = false;
+      buttons.forEach(function (b) {
+        if (CAAP64_LINKS[b[0]]) {
+          any = true;
+          var a = document.createElement('a');
+          a.className = 'caap64-btn';
+          a.href = CAAP64_LINKS[b[0]];
+          a.textContent = b[1];
+          container.appendChild(a);
+        }
+      });
+      help.textContent = any
+        ? "iPhone : App Store, ou TestFlight avec le lien d'invitation. Android : Google Play, ou le fichier APK (Réglages → Applications → autoriser cette source). Aucune donnée personnelle n'est transmise."
+        : "Les liens de téléchargement seront ajoutés ici (App Store, TestFlight, Google Play, APK). En attendant, retrouvez la station sur OpenWindMap : https://www.openwindmap.org/owm-986";
+    })();
+  </script>
+  <script src="wind-widget.js"></script>
+</body>
+</html>
