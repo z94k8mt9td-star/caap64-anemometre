@@ -109,26 +109,43 @@ Trois méthodes, de la plus simple à la plus complète :
 
 ### Méthode 1 — plugin WordPress (recommandé)
 
-Le dossier `wordpress/caap64-anemometre/` contient un plugin prêt à l'emploi :
+Le dossier `wordpress/caap64-anemometre/` contient un plugin prêt à l'emploi.
+
+**Télécharger le zip tout fait** (reconstruit automatiquement à chaque push sur `main`) :
+https://github.com/z94k8mt9td-star/caap64-anemometre/releases/download/plugin-wordpress/caap64-anemometre-wp.zip
+
+Ou le fabriquer soi-même depuis le dépôt :
 
 ```bash
 cd wordpress
 zip -r ../caap64-anemometre-wp.zip caap64-anemometre/
 ```
 
-Sur caap64.fr : *Extensions → Ajouter → Téléverser un plugin* → uploader `caap64-anemometre-wp.zip` → **Activer**.
+**Installation pas à pas sur caap64.fr** :
 
-Dans n'importe quelle page/article, ajouter les shortcodes :
+1. Connecte-toi à l'admin : https://caap64.fr/wp-admin
+2. Menu **Extensions → Ajouter → Téléverser un plugin** → choisis `caap64-anemometre-wp.zip` → **Installer maintenant** → **Activer l'extension**
+3. Menu **Pages → Ajouter une page**, titre : « Anémomètre »
+4. Dans l'éditeur, ajoute un bloc **Shortcode** et tape : `[caap64_wind]`
+5. Ajoute un deuxième bloc **Shortcode** et tape : `[caap64_app apk="https://caap64.fr/wp-content/uploads/caap64-anemometre.apk"]`
+   - Pour l'APK : menu **Médias → Ajouter** → uploade le fichier APK obtenu via EAS → clique dessus → copie l'URL du fichier → colle-la dans `apk="..."`
+   - Quand les liens App Store / TestFlight / Play seront prêts, ajoute-les : `appstore="..." testflight="..." play="..."`
+6. **Publier** la page, puis menu **Apparence → Menus** → ajoute la page « Anémomètre » au menu principal
+7. Vérifie le rendu en navigation privée (déconnecté) : https://caap64.fr/anemometre (ou l'URL choisie)
 
-```
-[caap64_wind]
-[caap64_app appstore="https://apps.apple.com/..." testflight="https://testflight.apple.com/..." play="https://play.google.com/..." apk="https://caap64.fr/wp-content/uploads/caap64-anemometre.apk"]
-```
+Les shortcodes :
 
 - `[caap64_wind]` : carte du vent en direct (vitesse moyenne, min/max, rose des vents, échelle de Beaufort,
   état de la station), rafraîchie toutes les 60 s directement depuis l'API OpenWindMap (CORS ouvert, aucune clé).
-- `[caap64_app ...]` : boutons de téléchargement de l'app. Uploader l'APK dans *Médias* et mettre son URL
-  dans `apk="..."`. Seuls les liens renseignés s'affichent.
+  **Aucun serveur local requis** : chaque visiteur appelle l'API publique depuis son navigateur.
+- `[caap64_app ...]` : boutons de téléchargement de l'app. Seuls les liens renseignés s'affichent.
+
+### Méthode 1 bis — bloc Elementor prêt à copier-coller (sans plugin)
+
+`web/elementor-block.html` : copier **tout le contenu** de ce fichier dans un widget **HTML** d'Elementor
+(« Modifier avec Elementor » → + → recherche « html »). Le bloc affiche le vent en direct + les boutons
+de téléchargement, et charge le CSS/JS depuis ce dépôt GitHub : aucun plugin requis. Remplacer les liens
+placeholders (`XXXXXXXX` TestFlight, URL de l'APK) par les vrais liens une fois les builds EAS faits.
 
 ### Méthode 2 — page statique `web/`
 
