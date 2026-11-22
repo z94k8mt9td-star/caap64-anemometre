@@ -146,6 +146,9 @@ Les shortcodes :
 (« Modifier avec Elementor » → + → recherche « html »). Le bloc affiche le vent en direct + les boutons
 de téléchargement, et charge le CSS/JS depuis ce dépôt GitHub : aucun plugin requis. Remplacer les liens
 placeholders (`XXXXXXXX` TestFlight, URL de l'APK) par les vrais liens une fois les builds EAS faits.
+Le bloc inclut aussi un **QR code** (`web/qr-apk-android.png`) qui pointe vers la release GitHub `apk-android` :
+publier l'APK dessus avec `gh release create apk-android <fichier.apk> --title "APK Android CAAP64" --clobber`,
+l'URL du QR reste alors stable : `https://github.com/z94k8mt9td-star/caap64-anemometre/releases/download/apk-android/caap64-anemometre.apk`
 
 ### Méthode 2 — page statique `web/`
 
