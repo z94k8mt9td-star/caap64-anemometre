@@ -49,6 +49,35 @@ function caap64_wind_shortcode($atts) {
 }
 add_shortcode('caap64_wind', 'caap64_wind_shortcode');
 
+function caap64_history_markup($station) {
+    ?>
+    <div class="caap64-history" data-station="<?php echo esc_attr($station); ?>">
+      <div class="caap64-history-head">
+        <h3>Historique du vent</h3>
+        <div class="caap64-periods">
+          <button type="button" class="caap64-period" data-ms="3600000">1 h</button>
+          <button type="button" class="caap64-period" data-ms="7200000">2 h</button>
+          <button type="button" class="caap64-period active" data-ms="86400000">24 h</button>
+          <button type="button" class="caap64-period" data-ms="172800000">48 h</button>
+          <button type="button" class="caap64-period" data-ms="604800000">7 j</button>
+        </div>
+      </div>
+      <svg class="caap64-chart" viewBox="0 0 600 220" preserveAspectRatio="none" role="img" aria-label="Graphique de l'historique du vent"></svg>
+      <div class="caap64-history-status">Chargement de l'historique…</div>
+    </div>
+    <?php
+}
+
+function caap64_history_shortcode($atts) {
+    $atts = shortcode_atts(array('station' => '986'), $atts, 'caap64_history');
+    caap64_enqueue_widget_assets();
+    wp_enqueue_script('caap64-history-widget', plugin_dir_url(__FILE__) . 'wind-history.js', array(), '1.0.0', true);
+    ob_start();
+    caap64_history_markup($atts['station']);
+    return ob_get_clean();
+}
+add_shortcode('caap64_history', 'caap64_history_shortcode');
+
 function caap64_app_shortcode($atts) {
     $atts = shortcode_atts(
         array(
