@@ -138,12 +138,14 @@ Les shortcodes :
 - `[caap64_wind]` : carte du vent en direct (vitesse moyenne, min/max, rose des vents, échelle de Beaufort,
   état de la station), rafraîchie toutes les 60 s directement depuis l'API OpenWindMap (CORS ouvert, aucune clé).
   **Aucun serveur local requis** : chaque visiteur appelle l'API publique depuis son navigateur.
+- `[caap64_history]` : **historique du vent** en graphique (bande min/max + courbe moyenne) sur 1 h, 2 h, 24 h, 48 h, 7 j,
+  via l'API Archive (`/v1/archive/986`), avec rafale max et moyenne de la période. Rafraîchi toutes les 5 min.
 - `[caap64_app ...]` : boutons de téléchargement de l'app. Seuls les liens renseignés s'affichent.
 
 ### Méthode 1 bis — bloc Elementor prêt à copier-coller (sans plugin)
 
 `web/elementor-block.html` : copier **tout le contenu** de ce fichier dans un widget **HTML** d'Elementor
-(« Modifier avec Elementor » → + → recherche « html »). Le bloc affiche le vent en direct + les boutons
+(« Modifier avec Elementor » → + → recherche « html »). Le bloc affiche le vent en direct + l'historique (graphique 1 h–7 j) + les boutons
 de téléchargement, et charge le CSS/JS depuis ce dépôt GitHub : aucun plugin requis. Remplacer les liens
 placeholders (`XXXXXXXX` TestFlight, URL de l'APK) par les vrais liens une fois les builds EAS faits.
 Le bloc inclut aussi un **QR code** (`web/qr-apk-android.png`) qui pointe vers la release GitHub `apk-android` :
