@@ -107,9 +107,9 @@
   <script>
     var CAAP64_LINKS = {
       appstore: '',
-      testflight: '',
-      play: '',
-      apk: ''
+      testflight: 'https://testflight.apple.com/join/XXXXXXXX',
+      play: 'https://play.google.com/store/apps/test/XXXXXXXX',
+      apk: 'https://github.com/z94k8mt9td-star/caap64-anemometre/releases/download/apk-android/caap64-anemometre.apk'
     };
     (function () {
       var buttons = [
@@ -132,7 +132,7 @@
         }
       });
       help.textContent = any
-        ? "iPhone : App Store, ou TestFlight avec le lien d'invitation. Android : Google Play, ou le fichier APK (Réglages → Applications → autoriser cette source). Aucune donnée personnelle n'est transmise."
+        ? "Android : préférez Google Play (test interne, aucune alerte). Avec l'APK direct : ouvrez le fichier téléchargé, autorisez « Installer des applications inconnues », et si Play Protect avertit, touchez le nom de l'app en haut de la fenêtre puis « Installer quand même ». iPhone : TestFlight. Mesures OpenWindMap (station 986), aucune donnée personnelle transmise."
         : "Les liens de téléchargement seront ajoutés ici (App Store, TestFlight, Google Play, APK). En attendant, retrouvez la station sur OpenWindMap : https://www.openwindmap.org/owm-986";
     })();
   </script>

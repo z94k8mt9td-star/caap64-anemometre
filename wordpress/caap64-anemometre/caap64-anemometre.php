@@ -110,9 +110,10 @@ function caap64_app_shortcode($atts) {
         <?php endif; ?>
       </div>
       <div class="caap64-help">
-        iPhone : App Store, ou TestFlight avec le lien d'invitation. Android : Google Play, ou le fichier APK
-        (Réglages → Applications → autoriser cette source). Les mesures viennent d'OpenWindMap (station 986),
-        aucune donnée personnelle n'est transmise.
+        Android : préférez Google Play (test interne, aucune alerte). Avec l'APK direct : ouvrez le fichier
+        téléchargé, autorisez « Installer des applications inconnues » (Réglages → Applications → autoriser cette source),
+        et si Play Protect avertit, touchez le nom de l'app en haut de la fenêtre puis « Installer quand même ».
+        iPhone : App Store ou TestFlight. Les mesures viennent d'OpenWindMap (station 986), aucune donnée personnelle n'est transmise.
       </div>
     </div>
     <?php
