@@ -97,6 +97,25 @@ npx eas-cli@latest submit --platform ios                   # TestFlight / App St
    ```
    Le lien TestFlight public (ou le lien d'invitation) va dans le shortcode `testflight="..."`.
 
+### Publier sur Google Play (test interne) — supprime l'alerte « app potentiellement dangereuse »
+
+L'APK en téléchargement direct fonctionne, mais Google Play Protect peut avertir à l'installation
+(app inconnue, installée hors Play Store). Pour **zéro avertissement**, passez par le Play Store en test interne :
+
+1. Compte **Google Play Developer** (25 $, paiement unique) : https://play.google.com/console → créer l'app
+   « CAAP64 Anémomètre », package `fr.caap64.anemometre` (validation : quelques heures à quelques jours)
+2. Build AAB : `npx eas-cli@latest build --profile production --platform android` (déjà fait : les builds
+   « Android Play Store build » sur expo.dev) → téléchargez le `.aab`
+3. Play Console → **Test interne** → nouvelle release → uploadez le `.aab` → ajoutez les **emails des membres** comme testeurs
+4. Lien d'opt-in du test : `https://play.google.com/store/apps/test/...` → à mettre dans le shortcode
+   `[caap64_app play="..."]` (ou le bouton « Google Play » du bloc Elementor)
+5. Les testeurs ouvrent le lien → Play Store → « Installer » : aucune alerte
+
+**Si un membre utilise l'APK direct malgré tout** : ouvrir le fichier téléchargé → autoriser
+« Installer des applications inconnues » (Réglages → Applications → accès spéciaux) → si Play Protect avertit,
+toucher **le nom de l'app en haut de la fenêtre de dialogue** puis **« Installer quand même »**.
+Ne désactivez pas Play Protect globalement.
+
 ### Builds automatiques via GitHub Actions
 
 Ajouter le secret `EXPO_TOKEN` : [expo.dev/settings/access-tokens](https://expo.dev/settings/access-tokens) → créer un token →
